@@ -70,11 +70,11 @@ int readRGB(unsigned char** r, unsigned char** g, unsigned char** b, int nHeight
 }
 int writeRGB(unsigned char** r, unsigned char** g, unsigned char** b, int nHeight_in, int nWidth_in, string file_name)
 {
-	RGB** out = new RGB*[512];
-	for (int n = 0; n < 512; n++)
+	RGB** out = new RGB*[nHeight_in];
+	for (int n = 0; n < nHeight_in; n++)
 	{
-		out[n] = new RGB[512];
-		memset(out[n], 0, sizeof(RGB) * 512);
+		out[n] = new RGB[nWidth_in];
+		memset(out[n], 0, sizeof(RGB) * nWidth_in);
 	}
 	for (int h = 0; h < nHeight_in; h++)
 
@@ -89,9 +89,9 @@ int writeRGB(unsigned char** r, unsigned char** g, unsigned char** b, int nHeigh
 		}
 	}
 	FILE* outfile = fopen(file_name.c_str(), "w+b");
-	for (int i = 0; i < Y_MAX; i++)
+	for (int i = 0; i < nHeight_in; i++)
 	{
-		fwrite(out[i], sizeof(RGB), X_MAX, outfile);
+		fwrite(out[i], sizeof(RGB), nWidth_in, outfile);
 	}
 
 	return 0;
